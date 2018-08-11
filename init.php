@@ -52,6 +52,7 @@ class Tumblr_GDPR_UA extends Plugin
         $contents = $this->fetch_contents($fetch_url, $auth_login, $auth_pass);
 
         $parser = new FeedParser($contents);
+        $parser->init();
         if (!$parser->error()) {
             $basic_info = array(
               'title' => mb_substr($parser->get_title(), 0, 199),
