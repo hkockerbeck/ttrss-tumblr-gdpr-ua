@@ -29,6 +29,7 @@ class Tumblr_GDPR_UA extends Plugin
             $host->add_hook($host::HOOK_SUBSCRIBE_FEED, $this);
             $host->add_hook($host::HOOK_FEED_BASIC_INFO, $this);
             $host->add_hook($host::HOOK_FETCH_FEED, $this);
+            $host->add_hook($host::HOOK_PREFS_TAB, $this);
         }
     }
 
@@ -73,6 +74,19 @@ class Tumblr_GDPR_UA extends Plugin
       $auth_pass
     ) {
         return $this->fetch_contents($fetch_url, $auth_login, $auth_pass);
+    }
+
+    public function hook_prefs_tab($args)
+    {
+        if ($args != "prefPrefs") {
+            return;
+        }
+
+        $replacements = array('{title}' => 'Tumblr GDPR UA');
+
+        $template = file_get_contents(__DIR__."/pref_template.html");
+        $template = str_replace(array_keys($replacements), array_values($replacements), $template);
+        print $template;
     }
 
     private function fetch_contents(
