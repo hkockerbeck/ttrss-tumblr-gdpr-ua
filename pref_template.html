@@ -1,6 +1,36 @@
+<style>
+  textarea#tumblr_domains {
+    font-size: 12px;
+    width: 30rem;
+    height: 20rem;
+  }
+</style>
 <div dojoType="dijit.layout.AccordionPane" title="{title}">
   <p>
     List of domains hosted by Tumblr (add your own).
     <em>tumblr.com</em> and subdomains of it are automatically included.
   </p>
+  <form dojoType="dijit.form.Form">
+    <script type="dojo/method" event="onSubmit" args="evt">
+      evt.preventDefault();
+      if (this.validate()) {
+        new Ajax.Request('backend.php', {
+          parameters: dojo.objectToQuery(this.getValues()),
+          onComplete: function(transport) {
+            if (transport.responseText.indexOf('error') >= 0) {
+              notify_error(transport.responseText);
+            } else {
+              notify_info(transport.responseText);
+            }
+          }
+        });
+      }
+    </script>
+    <input dojoType="dijit.form.TextBox" type="hidden" name="op" value="pluginhandler">
+    <input dojoType="dijit.form.TextBox" type="hidden" name="method" value="save">
+    <input dojoType="dijit.form.TextBox" type="hidden" name="plugin" value="tumblr_gdpr_ua">
+    <textarea id="tumblr_domains" dojoType="dijit.form.SimpleTextarea" name="tumblr_domains">{content}</textarea>
+    <br><br>
+    <button dojoType="dijit.form.Button" type="submit">Save</button>
+  </form>
 </div>

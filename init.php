@@ -2,6 +2,7 @@
 class Tumblr_GDPR_UA extends Plugin
 {
     private $host;
+    private $tumblr_domains = array();
 
     public function about()
     {
@@ -82,11 +83,21 @@ class Tumblr_GDPR_UA extends Plugin
             return;
         }
 
-        $replacements = array('{title}' => 'Tumblr GDPR UA');
+        $replacements = array(
+          '{title}' => 'Tumblr GDPR UA',
+          '{content}' => implode(PHP_EOL, $this->host->get($this, 'tumblr_domains', array())). PHP_EOL
+      );
 
         $template = file_get_contents(__DIR__."/pref_template.html");
         $template = str_replace(array_keys($replacements), array_values($replacements), $template);
         print $template;
+    }
+
+    public function save()
+    {
+        $tumblr_domains = explode("\r\n", $_POST['tumblr_domains']);
+        $tumblr_domains = array_unique(array_filter($tumblr_domains));
+        $this->host->set($this, 'tumblr_domains', $tumblr_domains);
     }
 
     private function fetch_contents(
