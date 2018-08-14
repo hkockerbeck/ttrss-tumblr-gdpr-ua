@@ -40,7 +40,11 @@ class Tumblr_GDPR_UA extends Plugin
       $auth_login,
       $auth_pass
     ) {
-        return $this->fetch_contents($fetch_url, $auth_login, $auth_pass);
+        if ($this->is_tumblr_domain($fetch_url)) {
+            $feed_data = $this->fetch_contents($fetch_url, $auth_login, $auth_pass);
+        }
+
+        return $feed_data;
     }
 
     public function hook_feed_basic_info(
@@ -51,15 +55,17 @@ class Tumblr_GDPR_UA extends Plugin
       $auth_login,
       $auth_pass
     ) {
-        $contents = $this->fetch_contents($fetch_url, $auth_login, $auth_pass);
+        if ($this->is_tumblr_domain($fetch_url)) {
+            $contents = $this->fetch_contents($fetch_url, $auth_login, $auth_pass);
 
-        $parser = new FeedParser($contents);
-        $parser->init();
-        if (!$parser->error()) {
-            $basic_info = array(
+            $parser = new FeedParser($contents);
+            $parser->init();
+            if (!$parser->error()) {
+                $basic_info = array(
               'title' => mb_substr($parser->get_title(), 0, 199),
               'site_url' => mb_substr(rewrite_relative_url($fetch_url, $parser->get_link()), 0, 245)
           );
+            }
         }
 
         return $basic_info;
@@ -74,7 +80,10 @@ class Tumblr_GDPR_UA extends Plugin
       $auth_login,
       $auth_pass
     ) {
-        return $this->fetch_contents($fetch_url, $auth_login, $auth_pass);
+        if ($this->is_tumblr_domain($fetch_url)) {
+            $feed_data = $this->fetch_contents($fetch_url, $auth_login, $auth_pass);
+        }
+        return $feed_data;
     }
 
     public function hook_prefs_tab($args)
@@ -111,5 +120,22 @@ class Tumblr_GDPR_UA extends Plugin
           'pass' => $auth_pass,
           'useragent' => 'googlebot');
         return fetch_file_contents($options);
+    }
+
+    private function ends_with($haystack, $needle)
+    {
+        return mb_substr($haystack, -mb_strlen($needle)) === $needle;
+    }
+
+    private function is_tumblr_domain($fetch_url)
+    {
+        $url = parse_url($fetch_url, PHP_URL_HOST);
+        $domains = $this->host->get($this, 'tumblr_domains', array());
+        array_push($domains, 'tumblr.com');
+        $found = array_filter($domains, function ($t) use ($url) {
+            return $this->ends_with($url, $t);
+        });
+
+        return !empty($found);
     }
 }
