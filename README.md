@@ -1,10 +1,10 @@
 # ttrss-tumblr-gdpr-ua
 
-Plugin for the RSS Reader (Tiny Tiny RSS)[https://tt-rss.org/] to handle RSS feeds from Tumblr in Europe.
+Plugin for the RSS Reader [Tiny Tiny RSS](https://tt-rss.org/) to handle RSS feeds from Tumblr in Europe.
 
 # What does it do?
 
-Because of European laws for the protection of data privacy ((GDPR)[https://en.wikipedia.org/wiki/General_Data_Protection_Regulation]), Tumblr's parent company Oath doesn't directly deliver its contents to users in Europe. Instead, the users are redirected to a page where they're asked to give Oath permission to handle, process etc. their data. Once that permission is given, the users can access the content they came for. For future visits, the permission is stored in a cookie.
+Because of European laws for the protection of data privacy ([GDPR](https://en.wikipedia.org/wiki/General_Data_Protection_Regulation)), Tumblr's parent company Oath doesn't directly deliver its contents to users in Europe. Instead, the users are redirected to a page where they're asked to give Oath permission to handle, process etc. their data. Once that permission is given, the users can access the content they came for. For future visits, the permission is stored in a cookie.
 
 Obviously, an automated system like TT-RSS gets tripped up if it can't just get a feed from an url like normal, but has to jump through some hoops instead. A few months ago, GregThib published [a plugin](https://github.com/GregThib/ttrss-tumblr-gdpr) that basically provided Oath with the permission cookie it expected, so TT-RSS could get to the feed.
 
