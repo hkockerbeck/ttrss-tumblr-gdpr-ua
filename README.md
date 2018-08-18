@@ -17,6 +17,7 @@ So this plugin checks whether the feed that TT-RSS needs to handle is from _tumb
 -   Download the plugin and put it into the `plugins.local` directory of your TT-RSS installation. Alternatively, you can put it into the `plugins` directory. The directory containing the plugin _must_ be named `tumblr_gdpr_ua`.
 -   Activate the plugin in TT-RSS' settings.
 -   In case you want to subscribe to a feed that's hosted by Tumblr, but at a domain _other_ than _tumblr.com_ or its subdomains, add that domain to the plugin's setting's.
+-   In case you want to subscribe to feeds from TT-RSS's public backend, you need to register the plugin as a system plugin with your TT-RSS installation. The public backend is everything using `https://your/tt-rss/installation.tld/public.php`. It's for example used when TT-RSS is registered with Firefox as a feed reader. Requests to the public backend don't authenticate any user, so no user plugins are loaded. You need to add `tumblr_gdpr_ua` to the list of system plugins in `config.php`, so it looks something like this: `define('PLUGINS', 'auth_internal, note, tumblr_gdpr_ua');`
 
 # Thanks
 
