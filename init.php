@@ -135,7 +135,7 @@ class Tumblr_GDPR_UA extends Plugin
           'url' => $fetch_url,
           'login' => $auth_login,
           'pass' => $auth_pass,
-          'useragent' => 'googlebot');
+          'useragent' => 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)');
         return fetch_file_contents($options);
     }
 
