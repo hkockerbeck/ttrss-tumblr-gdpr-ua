@@ -10,7 +10,7 @@ Obviously, an automated system like TT-RSS gets tripped up if it can't just get 
 
 But a short while ago, the plugin stopped working. It looks like Oath changed some detail of the permission process somewhere, so the cookie provided by Greg's plugin doesn't work anymore. Instead of delving into the murky details of the plugin (and repeating that every time Oath modifies its process), this plugin uses another "trick": If Oath thinks the request comes not from a "real" user, but a search engine's crawler, it doesn't bother with the permission page and delivers the content directly. Hopefully, they will continue to do so in the long run.
 
-So this plugin checks whether the feed that TT-RSS needs to handle is from _tumblr.com_ or a subdomain of it. If it is, the plugin switches the user agent to `googlebot`. Additionally to _tumblr.com_, you can add other domains that are hosted by Tumblr in the preferences.
+So this plugin checks whether the feed that TT-RSS needs to handle is from _tumblr.com_ or a subdomain of it. If it is, the plugin switches the user agent to the GoogleBot's UA. Additionally to _tumblr.com_, you can add other domains that are hosted by Tumblr in the preferences.
 
 # How to install?
 
