@@ -6,7 +6,7 @@ class Tumblr_GDPR_UA extends Plugin
     public function about()
     {
         return array(
-          1.0,
+          1.1,
           "Fixes Tumblr feeds for GDPR compliance by masquerading as GoogleBot
           (changing user agent). Requires curl.",
           "hkockerbeck");
