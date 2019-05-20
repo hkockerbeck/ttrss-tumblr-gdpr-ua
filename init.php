@@ -107,7 +107,8 @@ class Tumblr_GDPR_UA extends Plugin
         // replacements in the template
         $replacements = array(
           '{title}' => 'Tumblr GDPR UA',
-          '{content}' => implode(PHP_EOL, $this->host->get($this, 'tumblr_domains', array())). PHP_EOL
+          '{domainlist}' => implode(PHP_EOL, $this->host->get($this, 'tumblr_domains', array())). PHP_EOL,
+	  '{user_agent}' => $this->host->get($this, 'user_agent'),
       );
 
         // set up a _very_ basic template engine
@@ -123,6 +124,9 @@ class Tumblr_GDPR_UA extends Plugin
         $tumblr_domains = explode("\r\n", $_POST['tumblr_domains']);
         $tumblr_domains = array_unique(array_filter($tumblr_domains));
         $this->host->set($this, 'tumblr_domains', $tumblr_domains);
+
+	$user_agent = $_POST['user_agent'];
+	$this->host->set($this, 'user_agent', $user_agent);
     }
 
     // fetch feed data with changed user agent
