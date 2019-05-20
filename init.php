@@ -139,7 +139,7 @@ class Tumblr_GDPR_UA extends Plugin
           'url' => $fetch_url,
           'login' => $auth_login,
           'pass' => $auth_pass,
-          'useragent' => 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)');
+          'useragent' => $this->user_agent());
         return fetch_file_contents($options);
     }
 
@@ -163,5 +163,14 @@ class Tumblr_GDPR_UA extends Plugin
         });
 
         return !empty($found);
+    }
+
+    // if the user provided a custom user agent in the settings, use that
+    // otherwise, fall back to Googlebot
+    private function user_agent()
+    {
+      $fallback_ua = 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)';
+      $ua = $this->host->get($this, 'user_agent');
+      return ($ua == '') ? $fallback_ua : $ua;
     }
 }
