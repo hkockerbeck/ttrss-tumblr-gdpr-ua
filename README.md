@@ -2,6 +2,8 @@
 
 Plugin for the RSS Reader [Tiny Tiny RSS](https://tt-rss.org/) to handle RSS feeds from Tumblr in Europe.
 
+_Update 13.02.2021: It looks like Tumblr/Oath changed things up again. As of now, RSS feeds from Tumblr can be used in TT-RSS without any plugins or other additional hoops to jump through. Therefore, this plugin won't be maintained any more for future versions of TT-RSS, of PHP or of anything ;)_
+
 # What does it do?
 
 Because of European laws for the protection of data privacy ([GDPR](https://en.wikipedia.org/wiki/General_Data_Protection_Regulation)), Tumblr's parent company Oath doesn't directly deliver its contents to users in Europe. Instead, the users are redirected to a page where they're asked to give Oath permission to handle, process etc. their data. Once that permission is given, the users can access the content they came for. For future visits, the permission is stored in a cookie.
